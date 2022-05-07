@@ -76,3 +76,5 @@ def update_json():
 
     json.dump(crypto_currency, crypto)
     crypto.close()
+
+if __name__ == '__main__': update_json()
