@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 import requests
 import json
 import os
-import schedule
 import time
 
 #get cryptos prices
@@ -77,10 +76,3 @@ def update_json():
 
     json.dump(crypto_currency, crypto)
     crypto.close()
-
-#execute every 5 seconds to get real time pricing
-schedule.every(5).seconds.do(update_json)
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
