@@ -4,7 +4,6 @@
 To install dependencies, runs the following code in your command prompt.
 ```sh
 pip install BeatifulSoap
-pip install schedule
 ```
 
 ## Development
