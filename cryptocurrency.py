@@ -4,70 +4,24 @@ import json
 import os
 import time
 
-#get cryptos prices
-def bitcoin_price():
-    html = requests.get("https://coinmarketcap.com/currencies/bitcoin/")
-    soup = BeautifulSoup(html.text, 'html.parser')
-    bitcoin = soup.find("div", attrs={'class':'priceValue'}).text
+cryptos = ['bitcoin', 'ethereum', 'xrp', 'solana', 'cardano', 'monero']
 
-    return bitcoin
-
-def ethereum_price():
-    html = requests.get("https://coinmarketcap.com/currencies/ethereum/")
-    soup = BeautifulSoup(html.text, 'html.parser')
-    ethereum = soup.find("div", attrs={'class':'priceValue'}).text
-
-    return ethereum
-
-def bnb_price():
-    html = requests.get("https://coinmarketcap.com/currencies/bnb/")
-    soup = BeautifulSoup(html.text, 'html.parser')
-    bnb = soup.find("div", attrs={'class':'priceValue'}).text
-
-    return bnb
-
-def xrp_price():
-    html = requests.get("https://coinmarketcap.com/currencies/xrp/")
-    soup = BeautifulSoup(html.text, 'html.parser')
-    xrp = soup.find("div", attrs={'class':'priceValue'}).text
-
-    return xrp
-
-def solana_price():
-    html = requests.get("https://coinmarketcap.com/currencies/solana/")
-    soup = BeautifulSoup(html.text, 'html.parser')
-    solana = soup.find("div", attrs={'class':'priceValue'}).text
-
-    return solana
-
-def cardano_price():
-    html = requests.get("https://coinmarketcap.com/currencies/cardano/")
-    soup = BeautifulSoup(html.text, 'html.parser')
-    cardano = soup.find("div", attrs={'class':'priceValue'}).text
-
-    return cardano
-
-def monero_price():
-    html = requests.get("https://coinmarketcap.com/currencies/monero/")
-    soup = BeautifulSoup(html.text, 'html.parser')
-    monero = soup.find("div", attrs={'class':'priceValue'}).text
-
-    return monero
-
-#create a dict
 crypto_currency = {
 
     'CryptoCurrency' : {
-        'Bitcoin' : bitcoin_price(),
-        'Ethereum' : ethereum_price(),
-        'BNB' : bnb_price(),
-        'XRP' : xrp_price(),
-        'Solana' : solana_price(),
-        'Cardano' : cardano_price(),
-        'Monero' : monero_price(),
+    
     }
-
 }
+
+def crypto_price(crp):
+    html = requests.get(f"https://coinmarketcap.com/currencies/{crp}/")
+    soup = BeautifulSoup(html.text, 'html.parser')
+    crypt = soup.find("div", attrs={'class':'priceValue'}).text
+
+    crypto_currency['CryptoCurrency'][crp] = crypt
+
+for crp in cryptos:
+    crypto_price(crp)
 
 #create and update json file
 def update_json():
